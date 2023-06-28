@@ -20,7 +20,7 @@ The Hotel Management System is a comprehensive application designed to streamlin
 
 1. Clone the repository to your local machine using the following command:
 
-
+git clone https://github.com/Zubair-Zulifqar/HotelHubManagmentSystem_InCSharp.git
 
 2. Set up the necessary database and configuration settings as specified in the system documentation.
 
