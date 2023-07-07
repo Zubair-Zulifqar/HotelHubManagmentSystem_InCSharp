@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -25,32 +26,38 @@ namespace Hotel_Managment_System_ZubairZulfiqar_bsef20a504
         }
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            int number = Convert.ToInt32(tbNumber.Text);
+            int number = 0;
+            number=Convert.ToInt32(tbNumber.Text);
             String type=tbType.Text;
             String capacity=tbCapacity.Text;
             String price = tbPrice.Text;
             String occupied=tbOccupied.Text;
-
-            try
+            if (type.Trim().Equals("") || capacity.Trim().Equals("") || price.Trim().Equals("") || occupied.Trim().Equals("") || number == 0)
             {
-               
+                MessageBox.Show("Feilds Missing", "Empty Fields", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+            {
+                try
+                {
 
-                if (room.InsertRoom(number, type,capacity,price,occupied))
-                {
-                   gridRooms.DataSource = room.GetAllRooms();
-                    MessageBox.Show("inserted successfully!", "Add", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    btnClearFields.PerformClick();
+
+                    if (room.InsertRoom(number, type, capacity, price, occupied))
+                    {
+                        gridRooms.DataSource = room.GetAllRooms();
+                        MessageBox.Show("inserted successfully!", "Add", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        btnClearFields.PerformClick();
+                    }
+                    else
+                    {
+                        MessageBox.Show("not inserted!", "Add", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
-                else
+                catch (Exception ex)
                 {
-                    MessageBox.Show("not inserted!", "Add", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(ex.Message, "Room number error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Room number error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-
 
         }
 
@@ -76,56 +83,72 @@ namespace Hotel_Managment_System_ZubairZulfiqar_bsef20a504
 
         private void btnEdit_Click_1(object sender, EventArgs e)
         {
-            int number = Convert.ToInt32(tbNumber.Text);
+            int number = 0;
+            number=Convert.ToInt32(tbNumber.Text);
             String type = tbType.Text;
             String capacity = tbCapacity.Text;
             String price = tbPrice.Text;
             String occupied = tbOccupied.Text;
-
-            try
+            if (type.Trim().Equals("") || capacity.Trim().Equals("") || price.Trim().Equals("") || occupied.Trim().Equals("") || number == 0)
             {
-
-
-                if (room.EditRoom(number, type, capacity, price, occupied))
+                MessageBox.Show("Feilds Missing", "Empty Fields", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+            {
+                try
                 {
-                    gridRooms.DataSource = room.GetAllRooms();
-                    MessageBox.Show("inserted successfully!", "Add", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    btnClearFields.PerformClick();
+
+
+                    if (room.EditRoom(number, type, capacity, price, occupied))
+                    {
+                        gridRooms.DataSource = room.GetAllRooms();
+                        MessageBox.Show("inserted successfully!", "Add", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        btnClearFields.PerformClick();
+                    }
+                    else
+                    {
+                        MessageBox.Show("not inserted!", "Add", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
-                else
+                catch (Exception ex)
                 {
-                    MessageBox.Show("not inserted!", "Add", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(ex.Message, "Room number error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Room number error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-
         }
 
         private void btnRemove_Click_1(object sender, EventArgs e)
         {
-            try
-            {
-                int number = Convert.ToInt32(tbNumber.Text);
 
-                if (room.RemoveRoom(number))
-                {
-                    gridRooms.DataSource = room.GetAllRooms();
-                    MessageBox.Show("deleted successfully!", "Delete", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    btnClearFields.PerformClick();
-                }
-                else
-                {
-                    MessageBox.Show(" Room not deleted!", "Delete", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-            catch (Exception ex)
+            int number = 0;
+            number = Convert.ToInt32(tbNumber.Text);
+            if (number == 0)
             {
-                MessageBox.Show(ex.Message, "Room number error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Feilds Missing", "Empty Fields", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+            {
+                try
+                {
+                    if (room.RemoveRoom(number))
+                    {
+                        gridRooms.DataSource = room.GetAllRooms();
+                        MessageBox.Show("deleted successfully!", "Delete", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        btnClearFields.PerformClick();
+                    }
+                    else
+                    {
+                        MessageBox.Show(" Room not deleted!", "Delete", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Room number error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
+        
+       
 
         private void btnClearFields_Click_1(object sender, EventArgs e)
         {

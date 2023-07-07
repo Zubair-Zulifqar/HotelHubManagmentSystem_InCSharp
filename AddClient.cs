@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -99,27 +100,35 @@ namespace Hotel_Managment_System_ZubairZulfiqar_bsef20a504
             }
 
         }
-       
+
         private void btnRemove_Click(object sender, EventArgs e)
         {
-             try
-            {
-                int id = Convert.ToInt32(tbID.Text);
 
-                if (client.RemoveClient(id)) 
-                {
-                    gridClients.DataSource = client.GetAllClients();
-                    MessageBox.Show("Client deleted ", "Delete", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    btnClearFields.PerformClick();
-                }
-                else
-                {
-                    MessageBox.Show("not deleted!", " Delete", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-            catch (Exception ex)
+            int id = 0;
+            id = Convert.ToInt32(tbID.Text);
+            if (id == 0)
             {
-                MessageBox.Show(ex.Message, "ID error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Feilds Missing", "Empty Fields", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+            {
+                try
+                {
+                    if (client.RemoveClient(id))
+                    {
+                        gridClients.DataSource = client.GetAllClients();
+                        MessageBox.Show("Client deleted ", "Delete", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        btnClearFields.PerformClick();
+                    }
+                    else
+                    {
+                        MessageBox.Show("not deleted!", " Delete", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "ID error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
 
